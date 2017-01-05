@@ -4,13 +4,23 @@
    div {
 	   width: 200px;
 	   border: 1px solid black;
-	   padding: 20px;
+	   padding: 7px;
 	   text-align: left;
+	   line-height: 1.5;
+	   margin: 0 auto;
+	   font-family: Tahoma, Geneva, sans-serif;
+   }
+   
+   #main {
+	   width: 320px;
+	   border: 1px solid black;
+	   padding: 10px;
 	   margin: 0 auto;
    }
    </style>
 </head>
 <body>
+   <div id="main">
    <h1 align=center>Tip Calculator</h1>
    <form align=center action="tip_calculator.php" method="post">
    Bill Subtotal: $<input type="text" name="subtotal" value="<?php 
@@ -52,7 +62,7 @@
 					 $tip = ($percent / 100) * $subtotal;
 					 echo '$', number_format((float)$tip, 2, '.', '');
 			     ?>
-			<br><br>
+			<br>
 	        Total: <?php
 			          $total = $tip + $subtotal;
 					  echo '$', number_format((float)$total, 2, '.', '');
@@ -62,5 +72,6 @@
 		  }   
 	  }
    ?>
+   </div>
 </body>
 </html>
