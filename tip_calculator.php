@@ -9,6 +9,8 @@
 	   line-height: 1.5;
 	   margin: 0 auto;
 	   font-family: Tahoma, Geneva, sans-serif;
+	   background-color: #2374AB;
+	   color: #D6FFF6;
    }
    
    #main {
@@ -16,12 +18,14 @@
 	   border: 1px solid black;
 	   padding: 10px;
 	   margin: 0 auto;
+	   background-color: #003554;
+	   color: #D6FFF6;
    }
    </style>
 </head>
-<body>
+<body bgcolor="#0A2239">
    <div id="main">
-   <h1 align=center>Tip Calculator</h1>
+   <h1 align=center style="color:#4DCCBD;">Tip Calculator</h1>
    <form align=center action="tip_calculator.php" method="post">
    Bill Subtotal: $<input type="text" name="subtotal" value="<?php 
       if(isset($_POST["subtotal"])) {
