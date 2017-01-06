@@ -1,7 +1,12 @@
 <html>
 <head>
    <style>
-   div {
+   .buttonHolder{ 
+      text-align: center;
+	  
+   }
+   
+   .costs {
 	   width: 200px;
 	   border: 1px solid black;
 	   padding: 7px;
@@ -14,19 +19,27 @@
    }
    
    #main {
-	   width: 320px;
+	   width: 300px;
 	   border: 1px solid black;
-	   padding: 10px;
+	   padding: 20px;
+	   line-height: 1.5;
 	   margin: 0 auto;
+	   font-family: Tahoma, Geneva, sans-serif;
 	   background-color: #003554;
 	   color: #D6FFF6;
    }
+   
+   .err {
+	   font-family: Tahoma, Geneva, sans-serif;
+       color: #D6FFF6;
+   }
+   
    </style>
 </head>
 <body bgcolor="#0A2239">
    <div id="main">
    <h1 align=center style="color:#4DCCBD;">Tip Calculator</h1>
-   <form align=center action="tip_calculator.php" method="post">
+   <form action="tip_calculator.php" method="post">
    Bill Subtotal: $<input type="text" name="subtotal" value="<?php 
       if(isset($_POST["subtotal"])) {
 		  echo $_POST["subtotal"];
@@ -37,6 +50,7 @@
 	  }
    ?>"><br><br> 
    Tip Percentage:
+   <br>
    <?php
       for($i=0; $i < 3; $i++) {
 		  $x = 10 + $i*5;
@@ -51,29 +65,58 @@
    <?php   
       }
    ?>
+   <br>
+   <input type="radio" name="percent" value="customPerc" 
+      <?php
+	     if(isset($_POST["percent"]) && $_POST["percent"] == 'customPerc') {
+			 echo ' checked="checked" ';
+		 }
+	   ?>> Custom:
+   <input type="text" name="custom" size="1" value="<?php 
+      if(isset($_POST["custom"])) {
+		  echo $_POST["custom"];
+	  }
+	  else
+	  {
+		  echo "";
+	  }
+   ?>">%
    <br><br>
-   <input type="submit">
-   <br><br>
+   <div class="buttonHolder">
+      <input type="submit">
+   </div>
+   <br>
    
    <?php
       if(isset($_POST["percent"]) && isset($_POST["subtotal"]) && !empty($_POST["subtotal"])) {
 		  $subtotal = $_POST["subtotal"];
-		  if(is_numeric($subtotal) && $subtotal > 0) {
    ?>
-            <div>
-	        Tip: <?php
+            <div class="costs">
+	             <?php
 			         $percent = $_POST["percent"];
-					 $tip = ($percent / 100) * $subtotal;
-					 echo '$', number_format((float)$tip, 2, '.', '');
-			     ?>
+					 if($percent == 'customPerc') {
+						 $percent = $_POST["custom"];
+					 }
+					 if($percent <= 0 || !is_numeric($percent) || !is_numeric($subtotal) || $subtotal <= 0) {
+				 ?>
+				 <h3 class="err" align="center"> Invalid Input: Must be a numeric value greater than 0! </h3>
+				<?php
+					 }
+					 else {
+				 ?>
+				
+			Tip: <?php
+						$tip = ($percent / 100) * $subtotal;
+					    echo '$', number_format((float)$tip, 2, '.', '');
+				 ?>
 			<br>
-	        Total: <?php
+			Total: <?php
 			          $total = $tip + $subtotal;
 					  echo '$', number_format((float)$total, 2, '.', '');
-			       ?>
+					 }
+			     ?>
 	        </div>
-   <?php
-		  }   
+   <?php 
 	  }
    ?>
    </div>
