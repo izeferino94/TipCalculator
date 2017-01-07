@@ -82,15 +82,14 @@
 	  }
    ?>">%
    <br>
-   Split: <input type="text" name="split" size="2" value="<?php 
+   Split: <input type="text" name="split" size="2"
+   <?php 
       if(isset($_POST["split"])) {
-		  echo $_POST["split"];
+	?>
+		value="<?php echo $_POST["split"]; ?>"
+	<?php
 	  }
-	  else
-	  {
-		  echo "";
-	  }
-   ?>"> person(s)
+   ?>> person(s)
    <br><br>
    <div class="buttonHolder">
       <input type="submit">
@@ -107,7 +106,7 @@
 					 if($percent == 'customPerc') {
 						 $percent = $_POST["custom"];
 					 }
-					 if($percent <= 0 || !is_numeric($percent) || !is_numeric($subtotal) || $subtotal <= 0 || (isset($_POST["split"]) && $_POST["split"] <= 0)) {
+					 if($percent <= 0 || !is_numeric($percent) || !is_numeric($subtotal) || $subtotal <= 0) {
 				 ?>
 				<p align="center">Invalid Input: Must be a numeric value greater than 0!</p>
 				<?php
