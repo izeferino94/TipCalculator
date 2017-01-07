@@ -7,7 +7,7 @@
    }
    
    .costs {
-	   width: 200px;
+	   width: 250px;
 	   border: 1px solid black;
 	   padding: 7px;
 	   text-align: left;
@@ -81,6 +81,16 @@
 		  echo "";
 	  }
    ?>">%
+   <br>
+   Split: <input type="text" name="split" size="2" value="<?php 
+      if(isset($_POST["split"])) {
+		  echo $_POST["split"];
+	  }
+	  else
+	  {
+		  echo "";
+	  }
+   ?>"> person(s)
    <br><br>
    <div class="buttonHolder">
       <input type="submit">
@@ -97,9 +107,9 @@
 					 if($percent == 'customPerc') {
 						 $percent = $_POST["custom"];
 					 }
-					 if($percent <= 0 || !is_numeric($percent) || !is_numeric($subtotal) || $subtotal <= 0) {
+					 if($percent <= 0 || !is_numeric($percent) || !is_numeric($subtotal) || $subtotal <= 0 || (isset($_POST["split"]) && $_POST["split"] <= 0)) {
 				 ?>
-				 <h3 class="err" align="center"> Invalid Input: Must be a numeric value greater than 0! </h3>
+				<p align="center">Invalid Input: Must be a numeric value greater than 0!</p>
 				<?php
 					 }
 					 else {
@@ -113,12 +123,29 @@
 			Total: <?php
 			          $total = $tip + $subtotal;
 					  echo '$', number_format((float)$total, 2, '.', '');
+			     ?>
+			<br>
+			<?php
+			   if(isset($_POST["split"])) {
+				   $splitNum = $_POST["split"];
+				   if($splitNum > 1) {
+					   $tipSplit = $tip / $splitNum;
+					   $totalSplit = $total / $splitNum;
+			?>
+			          Tip Each: <?php
+					    echo '$', number_format((float)$tipSplit, 2, '.', '');
+				 ?>
+					  <br>
+					  Total Each: <?php
+					  echo '$', number_format((float)$totalSplit, 2, '.', '');
 					 }
 			     ?>
+			<?php
+				   }
+				}
+			   }
+			?>
 	        </div>
-   <?php 
-	  }
-   ?>
    </div>
 </body>
 </html>
